@@ -4,16 +4,22 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
+php version: PHP 7.2.34
+node version: node v12.18.1 (64-bit)
 
-### `yarn start`
+### `npm install`
+### `npm start`
 
-Runs the app in the development mode.\
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
+
+### `install xampp`
+### `open xampp`
+### `start apache and mysql`
+### `cd server`
+### `php -S localhost:8080`
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.\
