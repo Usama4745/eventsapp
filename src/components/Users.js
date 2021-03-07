@@ -5,8 +5,6 @@ export default function Users(props) {
     const user = getUser();
 
     const handleLogout = () => {
-        console.log("user");
-        console.log(user);
         removeUserSession();
         props.history.push('/login');
     }

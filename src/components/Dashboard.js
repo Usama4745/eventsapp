@@ -5,9 +5,8 @@ import Header from './Header';
 export default function Dashboard(props) {
   const user = getUser();
 
+  console.log("dashboard");
   const handleLogout = () => {
-    console.log("user");
-    console.log(user);
     removeUserSession();
     props.history.push('/login');
   }
@@ -16,6 +15,5 @@ export default function Dashboard(props) {
       <Header></Header>
       Welcome {user.data.username}!<br /><br />
       <input type="button" onClick={handleLogout} value="Logout" />
-
     </div>  );
 }

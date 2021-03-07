@@ -16,7 +16,7 @@ class Events extends REST_Controller {
         parent::__construct();
         
         // Load the user model
-        $this->load->model('user');
+        $this->load->model('event');
     }
     
     public function login_post() {
@@ -31,17 +31,17 @@ class Events extends REST_Controller {
             $con['returnType'] = 'single';
             $con['conditions'] = array(
                 'username' => $username,
-                'password' => md5($password),
+                'password' => ($password),
                 'status' => 1
             );
-            $user = $this->user->getRows($con);
+            $event = $this->event->getRows($con);
             
-            if($user){
+            if($event){
                 // Set the response and exit
                 $this->response([
                     'status' => TRUE,
-                    'message' => 'User login successful.',
-                    'data' => $user
+                    'message' => 'event added successful.',
+                    'data' => $event
                 ], REST_Controller::HTTP_OK);
             }else{
                 // Set the response and exit
@@ -57,63 +57,99 @@ class Events extends REST_Controller {
     public function addevent_post() {
         // Get the post data
         $name = strip_tags($this->post('name'));
-        $username = strip_tags($this->post('username'));
-        $password = $this->post('password');
-        $address = strip_tags($this->post('address'));
+        $description = strip_tags($this->post('description'));
+        $picurl = $this->post('picurl');
+        $industry = $this->post('industry');
+        $location = $this->post('location');
+        $user_id  = $this->post('user_id');
+        $begin_date  = $this->post('begin_date');
+        $end_date  = $this->post('end_date');
         
         // Validate the post data
-        if(!empty($name) && !empty($username) && !empty($password)){
+        if(!empty($name) && !empty($description) && !empty($picurl) && !empty($industry)  && !empty($begin_date)  && !empty($end_date) && !empty($user_id) && !empty($location)){
             
-            // Check if the given username already exists
-            $con['returnType'] = 'count';
-            $con['conditions'] = array(
-                'username' => $username,
-            );
-            $userCount = $this->user->getRows($con);
-            
-            if($userCount > 0){
-                // Set the response and exit
-                $this->response("The given username already exists.", REST_Controller::HTTP_BAD_REQUEST);
-            }else{
                 // Insert user data
-                $userData = array(
+                $eventData = array(
                     'name' => $name,
-                    'username' => $username,
-                    'password' => md5($password),
-                    'address' => $address
+                    'description' => $description,
+                    'picurl' => ($picurl),
+                    'industry' => $industry,
+                    'user_id' => $user_id,
+                    'location' => $location,
+                    'begin_date' => $begin_date,
+                    'end_date' => $end_date
                 );
-                $insert = $this->user->insert($userData);
+                $insert = $this->event->insert($eventData);
                 
                 // Check if the user data is inserted
                 if($insert){
                     // Set the response and exit
                     $this->response([
                         'status' => TRUE,
-                        'message' => 'The user has been added successfully.',
+                        'message' => 'The event has been added successfully.',
                         'data' => $insert
                     ], REST_Controller::HTTP_OK);
                 }else{
                     // Set the response and exit
                     $this->response("Some problems occurred, please try again.", REST_Controller::HTTP_BAD_REQUEST);
                 }
-            }
         }else{
             // Set the response and exit
             $this->response("Provide complete user info to add.", REST_Controller::HTTP_BAD_REQUEST);
         }
     }
     
-    public function user_get($id = 0) {
+    public function event_get($id = 0) {
         // Returns all the users data if the id not specified,
         // Otherwise, a single user will be returned.
         $con = $id?array('id' => $id):'';
-        $users = $this->user->getRows($con);
+        $events = $this->event->getRows($con);
         
         // Check if the user data exists
-        if(!empty($users)){
+        if(!empty($events)){
             // Set the response and exit
             //OK (200) being the HTTP response code
-            $this->response($users, REST_Controller::HTTP_OK);
+            $this->response($events, REST_Controller::HTTP_OK);
+        }else{
+            // Set the response and exit
+            //NOT_FOUND (404) being the HTTP response code
+            $this->response([
+                'status' => FALSE,
+                'message' => 'No user was found.'
+            ], REST_Controller::HTTP_NOT_FOUND);
+        }
+    }
+    
+    public function userevent_get($id = 0) {
+        // Returns all the users data if the id not specified,
+        // Otherwise, a single user will be returned.
+        $con = $id?array('id' => $id):'';
+        $events = $this->event->getRows($con);
+        
+        // Check if the user data exists
+        if(!empty($events)){
+            // Set the response and exit
+            //OK (200) being the HTTP response code
+            $this->response($events, REST_Controller::HTTP_OK);
+        }else{
+            // Set the response and exit
+            //NOT_FOUND (404) being the HTTP response code
+            $this->response([
+                'status' => FALSE,
+                'message' => 'No user was found.'
+            ], REST_Controller::HTTP_NOT_FOUND);
+        }
+    }
+    public function eventall_get() {
+        // Returns all the users data if the id not specified,
+        // Otherwise, a single user will be returned.
+        $events = $this->event->getRows();
+        
+        // Check if the user data exists
+        if(!empty($events)){
+            // Set the response and exit
+            //OK (200) being the HTTP response code
+            $this->response($events, REST_Controller::HTTP_OK);
         }else{
             // Set the response and exit
             //NOT_FOUND (404) being the HTTP response code
@@ -136,21 +172,21 @@ class Events extends REST_Controller {
         // Validate the post data
         if(!empty($id) && (!empty($name) || !empty($username) || !empty($password) || !empty($address))){
             // Update user's account data
-            $userData = array();
+            $eventData = array();
             if(!empty($name)){
-                $userData['name'] = $name;
+                $eventData['name'] = $name;
             }
             
             if(!empty($username)){
-                $userData['username'] = $username;
+                $eventData['username'] = $username;
             }
             if(!empty($password)){
-                $userData['password'] = md5($password);
+                $eventData['password'] = ($password);
             }
             if(!empty($address)){
-                $userData['address'] = $address;
+                $eventData['address'] = $address;
             }
-            $update = $this->user->update($userData, $id);
+            $update = $this->user->update($eventData, $id);
             
             // Check if the user data is updated
             if($update){

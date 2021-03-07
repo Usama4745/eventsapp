@@ -23,7 +23,7 @@ function App() {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/events" component={Events} />
           <Route path="/users" component={Users} />
-          <PublicRoute path="/login" component={Login} />
+          <Route path="/login" component={Login} />
           {/* <PrivateRoute path="/dashboard" component={Dashboard} /> */}
         </Switch>
     </div>

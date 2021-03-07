@@ -1,4 +1,4 @@
-import logo from '../assets/img/loginscreen.svg'; // Tell webpack this JS file uses this image
+import logo from '../assets/image/registerscreen.svg'; // Tell webpack this JS file uses this image
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../App.css';
@@ -76,15 +76,13 @@ function Register() {
                                         <h6 className="mb-0 text-sm">Password</h6>
                                     </label> <input type="password" onChange={e => setPassword(e.target.value)} name="password" placeholder="Enter password" /> </div>
                                 <div className="row mb-3 px-3">
-                                    <button type="submit" className="btn btn-blue text-center">Register</button>
+                                    <button type="submit" className="btn btn-blue text-center loginbtn">Register</button>
                                 </div>
                                 <div className="row mb-3 px-3">
-                                    <button className="btn btn-blue text-center">
                                     <Link to={'/login'} className="btn btn-blue text-center">
 
                                         Login
                                         </Link>
-                                        </button>
                                 </div>
                             </form>
 

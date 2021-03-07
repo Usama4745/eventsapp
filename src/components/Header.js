@@ -6,8 +6,6 @@ export default function Header(props) {
     const user = getUser();
 
     var isadmin=false;
-    console.log("user");
-    console.log(user);
     if(user.data.isAdmin=="1"){
         isadmin=true
     }
