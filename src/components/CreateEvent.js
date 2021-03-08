@@ -1,6 +1,6 @@
 import logo from '../assets/image/loginscreen.svg'; // Tell webpack this JS file uses this image
 import events from '../assets/image/events.svg'; // Tell webpack this JS file uses this image
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getUser, removeUserSession } from './Utils/Common';
 import PropTypes from 'prop-types';
 import '../App.css';
@@ -23,8 +23,28 @@ function CreatEvent(props) {
     const [end_date, setEnd_date] = useState();
     const history = useHistory();
 
+    function getFile(e) {
+        e.preventDefault();
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        console.log(file);
+        reader.onloadend = (theFile) => {
+            // var data = {
+            //     blob: theFile.target.result, name: file.name,
+            //     visitorId:  this.props.socketio.visitorId
+            // };
+            // console.log(this.props.socketio);
+            // this.props.socketio.emit('file-upload', data);
+        };
+        let formData = new FormData();
+
+        formData.append("photo", file);
+        fetch('/image', { method: "POST", body: formData });
+        setPicurl(file.name);
+
+        reader.readAsDataURL(file);
+    }
     useEffect(function effectFunction() {
-        setPicurl("events.svg");
         setBegin_date("2021-04-15");
         setEnd_date("2021-04-16");
         setUserid(user.data.id);
@@ -55,10 +75,10 @@ function CreatEvent(props) {
         })
             .then(response => response.json())
             .then(data => {
-                if(data.status==true){
+                if (data.status == true) {
                     props.history.push('/events');
 
-                }else{
+                } else {
                     toast(data.message);
 
                 }
@@ -97,6 +117,13 @@ function CreatEvent(props) {
                                         <h6 className="mb-0 text-sm">Location</h6>
                                     </label>
                                     <input type="text" onChange={e => setLocation(e.target.value)} name="location" placeholder="Enter location" />
+                                </div>
+                                <div className="row px-3">
+                                    <label className="mb-1">
+                                        <h6 className="mb-0 text-sm">choose image</h6>
+                                    </label>
+                                    <input onChange={getFile} id="fileUpload" type="file" accept="image/*" />
+
                                 </div>
 
                                 <div className="row mb-3 px-3">
