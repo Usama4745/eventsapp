@@ -34,9 +34,14 @@ function Login(props) {
         })
             .then(response => response.json())
             .then(data => {
-                setUserSession(data)
-                props.history.push('/');
-                toast("successfully logged in");
+                if(data.status==true){
+                    setUserSession(data)
+                    props.history.push('/');
+                    toast("successfully logged in");
+                }else{
+                    toast(data.message);
+
+                }
 
             });
     }
