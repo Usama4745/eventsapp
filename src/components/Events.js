@@ -3,16 +3,12 @@ import Header from './Header';
 import EventCard from './EventCard';
 import React, { useState, useEffect } from 'react';
 import './events.css';
+import { Link } from 'react-router-dom';
 
 export default function Events(props) {
     const user = getUser();
     const [eventdata, setEvent] = useState();
-
-
-
-    console.log("events");
-
-      useEffect(function effectFunction() {
+    useEffect(function effectFunction() {
         fetch('http://localhost:8080/api/events/eventall', {
             method: 'GET',
             headers: {
@@ -26,16 +22,22 @@ export default function Events(props) {
         })
             .then(response => response.json())
             .then(data => {
-            setEvent(data)
-            console.log("indside user effects and fetch")
+                setEvent(data)
+                console.log("indside user effects and fetch")
             });
     }, []);
 
     return (
         <div>
             <Header></Header>
-            {eventdata?.map((object, index) => (
-                <EventCard events={object} key={index}></EventCard>
-            ))}
+            {user.data.isAdmin == "1" && (
+                <Link to="/createvent" className="btn-primary">
+                    Creae New Event</Link>
+            )}
+            <div>
+                {eventdata?.map((object, index) => (
+                    <EventCard events={object} key={index}></EventCard>
+                ))}
+            </div>
         </div>);
 }

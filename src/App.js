@@ -4,8 +4,11 @@ import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Users from './components/Users';
 import Events from './components/Events';
+import CreatEvent from './components/CreateEvent';
 import PrivateRoute from './components/Utils/PrivateRoute';
 import PublicRoute from './components/Utils/PublicRoute';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 import React, { useState } from 'react';
@@ -18,12 +21,12 @@ function App() {
     <BrowserRouter>
     <div className="wrapper">
         <Switch>
-          <Route exact path='/' component={Login} />
+          <Route exact path='/' component={Dashboard} />
           <Route path="/register" component={Register} />
-          <Route path="/dashboard" component={Dashboard} />
           <Route path="/events" component={Events} />
           <Route path="/users" component={Users} />
           <Route path="/login" component={Login} />
+          <Route path="/createvent" component={CreatEvent} />
           {/* <PrivateRoute path="/dashboard" component={Dashboard} /> */}
         </Switch>
     </div>

@@ -3,34 +3,41 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../App.css';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
-async function registerUser(credentials) {
-    console.log("credentials")
-    console.log(credentials)
-    console.log(JSON.stringify(credentials))
-    return fetch('http://localhost:8080/api/authentication/registration', {
-        method: 'POST',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Authorization': 'Basic YWRtaW46MTIzNA==',
-            'X-API-KEY': 'EVENTAPP@123',
-            'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify(credentials)
-    })
-        .then(data => data.json(), function (data) {
-            console.log(data);
-        })
-}
 
-function Register() {
+
+function Register(props) {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [name, setName] = useState();
     const [address, setAddress] = useState();
+    async function registerUser(credentials) {
+        return fetch('http://localhost:8080/api/authentication/registration', {
+            method: 'POST',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': '*',
+                'Access-Control-Allow-Headers': '*',
+                'Authorization': 'Basic YWRtaW46MTIzNA==',
+                'X-API-KEY': 'EVENTAPP@123',
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify(credentials)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status==false){
+                toast("User already exists");
+            }else{
+                toast("Registered successfully Please login to continue");
 
+                props.history.push('/login');
+            }
+            console.log(data)
+            // 
+        });
+    }
     const handleSubmit = async e => {
         e.preventDefault();
         const token = await registerUser({
@@ -88,6 +95,8 @@ function Register() {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
+
         </div>
     );
 }

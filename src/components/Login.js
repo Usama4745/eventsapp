@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { removeUserSession, setUserSession } from './Utils/Common';
 import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function Login(props) {
@@ -34,7 +35,9 @@ function Login(props) {
             .then(response => response.json())
             .then(data => {
                 setUserSession(data)
-                props.history.push('/dashboard');
+                props.history.push('/');
+                toast("successfully logged in");
+
             });
     }
     return (
@@ -68,6 +71,8 @@ function Login(props) {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
+
         </div>
     );
 }

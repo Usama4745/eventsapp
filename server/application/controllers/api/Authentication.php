@@ -73,14 +73,19 @@ class Authentication extends REST_Controller {
             
             if($userCount > 0){
                 // Set the response and exit
-                $this->response("The given username already exists.", REST_Controller::HTTP_BAD_REQUEST);
+                // $this->response("The given username already exists.", REST_Controller::HTTP_BAD_REQUEST);
+                $this->response([
+                    'status' => FALSE,
+                    'message' => 'The given username already exists.',
+                ], REST_Controller::HTTP_OK);
             }else{
                 // Insert user data
                 $userData = array(
                     'name' => $name,
                     'username' => $username,
                     'password' => md5($password),
-                    'address' => $address
+                    'address' => $address,
+                    'isAdmin' => "0"
                 );
                 $insert = $this->user->insert($userData);
                 

@@ -24,7 +24,7 @@ export default function Header(props) {
 
                     <div className="collapse navbar-collapse" id="navbar-collapse-1">
                         <ul className="nav navbar-nav navbar-right">
-                            <li><Link to="/events">Events</Link></li>
+                            <li><Link to="/">Home</Link></li>
                             { isadmin ? <li><Link to="/users">Users</Link></li> : null }
                         </ul>
 

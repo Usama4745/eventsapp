@@ -57,21 +57,24 @@ class Events extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
                 }else{
                     // Set the response and exit
-                    $this->response("Some problems occurred, please try again.", REST_Controller::HTTP_BAD_REQUEST);
+                    $this->response([
+                        'status' => False,
+                        'message' => 'Some problems occurred, please try again.',
+                    ], REST_Controller::HTTP_OK);
                 }
         }else{
             // Set the response and exit
-            $this->response("Provide complete user info to add.", REST_Controller::HTTP_BAD_REQUEST);
+            $this->response([
+                'status' => False,
+                'message' => 'Provide complete event info to add.',
+            ], REST_Controller::HTTP_OK);
         }
     }
     
     public function event_get($id = 0) {
-        // Returns all the users data if the id not specified,
-        // Otherwise, a single user will be returned.
         $con = $id?array('id' => $id):'';
         $events = $this->event->getRows($con);
         
-        // Check if the user data exists
         if(!empty($events)){
             // Set the response and exit
             //OK (200) being the HTTP response code
@@ -87,12 +90,9 @@ class Events extends REST_Controller {
     }
     
     public function userevent_get($id = 0) {
-        // Returns all the users data if the id not specified,
-        // Otherwise, a single user will be returned.
         $con = $id?array('id' => $id):'';
         $events = $this->event->getRows($con);
         
-        // Check if the user data exists
         if(!empty($events)){
             // Set the response and exit
             //OK (200) being the HTTP response code
@@ -107,11 +107,8 @@ class Events extends REST_Controller {
         }
     }
     public function eventall_get() {
-        // Returns all the users data if the id not specified,
-        // Otherwise, a single user will be returned.
         $events = $this->event->getRows();
         
-        // Check if the user data exists
         if(!empty($events)){
             // Set the response and exit
             //OK (200) being the HTTP response code
