@@ -139,7 +139,7 @@ class Event extends CI_Model {
         if(!array_key_exists('UpdatedDate', $data)){
             $data['UpdatedDate'] = date("Y-m-d H:i:s");
         }
-        $this->db->where('id',$id);
+        $this->db->where('id',intval($id));
         $query = $this->db->get();
         $result = $query->row_array();
 

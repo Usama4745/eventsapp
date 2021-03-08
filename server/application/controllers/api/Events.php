@@ -19,40 +19,6 @@ class Events extends REST_Controller {
         $this->load->model('event');
     }
     
-    public function login_post() {
-        // Get the post data
-        $username = $this->post('username');
-        $password = $this->post('password');
-
-        // Validate the post data
-        if(!empty($username) && !empty($password)){
-            
-            // Check if any user exists with the given credentials
-            $con['returnType'] = 'single';
-            $con['conditions'] = array(
-                'username' => $username,
-                'password' => ($password),
-                'status' => 1
-            );
-            $event = $this->event->getRows($con);
-            
-            if($event){
-                // Set the response and exit
-                $this->response([
-                    'status' => TRUE,
-                    'message' => 'event added successful.',
-                    'data' => $event
-                ], REST_Controller::HTTP_OK);
-            }else{
-                // Set the response and exit
-                //BAD_REQUEST (400) being the HTTP response code
-                $this->response("Wrong username or password.", REST_Controller::HTTP_BAD_REQUEST);
-            }
-        }else{
-            // Set the response and exit
-            $this->response("Provide username and password.", REST_Controller::HTTP_BAD_REQUEST);
-        }
-    }
     
     public function addevent_post() {
         // Get the post data
@@ -74,7 +40,7 @@ class Events extends REST_Controller {
                     'description' => $description,
                     'picurl' => ($picurl),
                     'industry' => $industry,
-                    'user_id' => $user_id,
+                    'user_id' => intval($user_id),
                     'location' => $location,
                     'begin_date' => $begin_date,
                     'end_date' => $end_date

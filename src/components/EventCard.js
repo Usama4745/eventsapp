@@ -6,9 +6,14 @@ import logo from '../assets/image/loginscreen.svg'; // Tell webpack this JS file
 export default function EventCard(props) {
     const user = getUser();
     const userid=user.data.id;
-    const handleParticipate = async (id) => {
-        return fetch('http://localhost:8080/api/events/updatereg', {
-            method: 'POST',
+    console.log("props eventcard");
+    if(props.events.registered_users!=null){
+        console.log(Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id));
+    }
+      async function handleParticipate(id) {
+          console.log(id);
+        fetch('http://localhost:8080/api/events/updatereg', {
+            method: 'PUT',
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': '*',
@@ -51,8 +56,13 @@ export default function EventCard(props) {
                 </div>
                 <div >
                     
-                {user.data.id!=props.events.user_id && (
-                    <button onClick={handleParticipate(props.events.id)} className="btn-primary">Participate</button>
+                {user.data.id!=props.events.user_id && 
+                (props.events.registered_users!=null?Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id)==-1:true) 
+                && (
+                    <button onClick = {()=>handleParticipate(props.events.id)} className="btn-primary">Participate</button>
+                    )}
+                {props.events.registered_users!=null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id)>-1 && (
+                    <div >Participated!!</div>
                     )}
                 </div>
             </div>
