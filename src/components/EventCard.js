@@ -5,24 +5,40 @@ import logo from '../assets/image/loginscreen.svg'; // Tell webpack this JS file
 
 export default function EventCard(props) {
     const user = getUser();
-
-    console.log("events data props");
-    console.log(props.events)
+    const userid=user.data.id;
+    const handleParticipate = async (id) => {
+        return fetch('http://localhost:8080/api/events/updatereg', {
+            method: 'POST',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': '*',
+                'Access-Control-Allow-Headers': '*',
+                'Authorization': 'Basic YWRtaW46MTIzNA==',
+                'X-API-KEY': 'EVENTAPP@123',
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify({
+                id,
+                userid
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            });
+    }
     return (
-        // <div className="card" style={{width:'400px'}} >
-        //     <img className="card-img-top" src={`/image/${props.events.picurl}`} alt="Card image" style={{width:'100%'}}/>
-        //         <div className="card-body">
-        //             <h4 className="card-title">{props.events.name}</h4>
-        //             <p className="card-text">{props.events.description}</p>
-        //             <a href="#" className="btn btn-primary">Participate</a>
-        //         </div>
-        // </div>
-
+       
         <div className="col-lg-3 col-sm-6">
 
             <div className="card hovercard">
-                <div className="cardheader">
-                <img className="card-img-top" src={`/image/${props.events.picurl}`} alt="Card image" style={{width:'100%'}}/>
+                <div className="cardheader"
+                style={{  
+                    backgroundImage: `url(/image/${props.events.picurl})`,
+                    backgroundSize: 'cover',
+                    height: '135px'
+                  }}
+                >
                 </div>
 
                 <div className="info">
@@ -34,7 +50,10 @@ export default function EventCard(props) {
                     <div className="desc">Industry: {props.events.industry}</div>
                 </div>
                 <div >
-                    <button className="btn-primary">Participate</button>
+                    
+                {user.data.id!=props.events.user_id && (
+                    <button onClick={handleParticipate(props.events.id)} className="btn-primary">Participate</button>
+                    )}
                 </div>
             </div>
 

@@ -53,6 +53,7 @@ $route['api/authentication/login'] = 'api/authentication/login';
 $route['api/authentication/registration'] = 'api/authentication/registration';
 $route['api/events/addevent'] = 'api/events/addevent';
 $route['api/events/eventall'] = 'api/events/eventall';
+$route['api/events/updatereg'] = 'api/events/updatereg';
 $route['api/authentication/user/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/authentication/user/id/$1/format/$3$4';
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';

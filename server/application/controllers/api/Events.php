@@ -186,7 +186,7 @@ class Events extends REST_Controller {
             if(!empty($address)){
                 $eventData['address'] = $address;
             }
-            $update = $this->user->update($eventData, $id);
+            $update = $this->event->update($eventData, $id);
             
             // Check if the user data is updated
             if($update){
@@ -194,6 +194,38 @@ class Events extends REST_Controller {
                 $this->response([
                     'status' => TRUE,
                     'message' => 'The user info has been updated successfully.'
+                ], REST_Controller::HTTP_OK);
+            }else{
+                // Set the response and exit
+                $this->response("Some problems occurred, please try again.", REST_Controller::HTTP_BAD_REQUEST);
+            }
+        }else{
+            // Set the response and exit
+            $this->response("Provide at least one user info to update.", REST_Controller::HTTP_BAD_REQUEST);
+        }
+    }
+    
+    public function updatereg_put() {
+        $id = $this->put('id');
+        
+        // Get the post data
+        $userid = $this->put('userid');
+        // Validate the post data
+        if(!empty($userid) && !empty($id)){
+            // Update user's account data
+            $eventData = array();
+            if(!empty($userid)){
+                $eventData['registered_users'] = $userid;
+            }
+           
+            $update = $this->event->updatereguser($eventData, $id);
+            
+            // Check if the user data is updated
+            if($update){
+                // Set the response and exit
+                $this->response([
+                    'status' => TRUE,
+                    'message' => 'The event info has been updated successfully.'
                 ], REST_Controller::HTTP_OK);
             }else{
                 // Set the response and exit

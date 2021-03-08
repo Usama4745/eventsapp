@@ -2,10 +2,13 @@ import { getUser, removeUserSession } from './Utils/Common';
 import Header from './Header';
 import EventCard from './EventCard';
 import React, { useState, useEffect } from 'react';
+import './events.css';
 
 export default function Events(props) {
     const user = getUser();
     const [eventdata, setEvent] = useState();
+
+
 
     console.log("events");
 
