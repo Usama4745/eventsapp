@@ -45,14 +45,12 @@ function Register() {
             <div className="wrap">
                 <div className="floatleft">
                     <span className="helper"></span>
-
                     <img src={logo} className="img-fluid loginimg" alt="" />
                 </div>
                 <div className="floatright">
-                    <div className="col-lg-6">
-                        <div className="card2 card border-0 px-4 py-5">
+                    <div className="loginform col-lg-6">
+                        <div className="card2 border-0 px-4 py-5">
                             <form onSubmit={handleSubmit}>
-
                                 <div className="row px-3">
                                     <label className="mb-1">
                                         <h6 className="mb-0 text-sm">Name</h6>
