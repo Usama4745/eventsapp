@@ -32,16 +32,24 @@ export default function Events(props) {
         <div>
             <Header></Header>
             {user.data.isAdmin == "1" && (
-                <Link to="/createvent" className="btn-primary">
+                <Link to="/createvent" className="btn-primary margin">
                     Create New Event</Link>
             )}
             {user.data.isAdmin == "0" && (
-                <Link to="/myevents" className="btn-primary">
+                <Link to="/myevents" className="btn-primary margin">
                     My Events</Link>
+            )}
+            {user.data.isAdmin == "0" && (
+                <Link to="/pastevents" className="btn-primary margin">
+                    Past events</Link>
+            )}
+            {user.data.isAdmin == "0" && (
+                <Link to="/newevents" className="btn-primary margin">
+                    New events</Link>
             )}
             <div>
                 {eventdata?.map((object, index) => (
-                    <EventCard events={object} ismyevent={1} key={index}></EventCard>
+                    <EventCard events={object} ismyevent={1} ispastevent={1} isnewevent={1} key={index}></EventCard>
                 ))}
             </div>
         </div>);

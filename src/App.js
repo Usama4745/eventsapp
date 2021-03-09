@@ -6,6 +6,8 @@ import Users from './components/Users';
 import Events from './components/Events';
 import CreatEvent from './components/CreateEvent';
 import MyEvents from './components/MyEvents';
+import PastEvent from './components/PastEvent';
+import NewEvents from './components/NewEvents';
 import PrivateRoute from './components/Utils/PrivateRoute';
 import PublicRoute from './components/Utils/PublicRoute';
 import { ToastContainer, toast } from 'react-toastify';
@@ -25,6 +27,8 @@ function App() {
           <Route exact path='/' component={Dashboard} />
           <Route path="/register" component={Register} />
           <Route path="/events" component={Events} />
+          <Route path="/pastevents" component={PastEvent} />
+          <Route path="/newevents" component={NewEvents} />
           <Route path="/users" component={Users} />
           <Route path="/login" component={Login} />
           <Route path="/createvent" component={CreatEvent} />
