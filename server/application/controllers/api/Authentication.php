@@ -66,7 +66,7 @@ class Authentication extends REST_Controller {
         $address = strip_tags($this->post('address'));
         
         // Validate the post data
-        if(!empty($name) && !empty($username) && !empty($password)){
+        if(!empty($name) && !empty($username) && !empty($password) && !empty($address)){
             
             // Check if the given username already exists
             $con['returnType'] = 'count';
@@ -103,12 +103,18 @@ class Authentication extends REST_Controller {
                     ], REST_Controller::HTTP_OK);
                 }else{
                     // Set the response and exit
-                    $this->response("Some problems occurred, please try again.", REST_Controller::HTTP_BAD_REQUEST);
+                    $this->response([
+                        'status' => FALSE,
+                        'message' => 'Some problems occurred, please try again.',
+                    ], REST_Controller::HTTP_OK);
                 }
             }
         }else{
             // Set the response and exit
-            $this->response("Provide complete user info to add.", REST_Controller::HTTP_BAD_REQUEST);
+            $this->response([
+                'status' => FALSE,
+                'message' => 'Provide complete user info to add.',
+            ], REST_Controller::HTTP_OK);
         }
     }
     

@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 import '../App.css';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-
-
-
 function Register(props) {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
@@ -28,7 +25,7 @@ function Register(props) {
         .then(response => response.json())
         .then(data => {
             if(data.status==false){
-                toast("User already exists");
+                toast(data.message);
             }else{
                 toast("Registered successfully Please login to continue");
 

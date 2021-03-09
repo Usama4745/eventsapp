@@ -31,6 +31,8 @@ class Events extends REST_Controller {
         $begin_date  = $this->post('begin_date');
         $end_date  = $this->post('end_date');
         
+        $end_date=(date("Y-m-d H:i:s", strtotime($end_date)));
+        $begin_date=(date("Y-m-d H:i:s", strtotime($begin_date)));
         // Validate the post data
         if(!empty($name) && !empty($description) && !empty($picurl) && !empty($industry)  && !empty($begin_date)  && !empty($end_date) && !empty($user_id) && !empty($location)){
             

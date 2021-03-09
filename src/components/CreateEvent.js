@@ -9,18 +9,20 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import Header from './Header';
 import { ToastContainer, toast } from 'react-toastify';
+import DateTimePicker from 'react-datetime-picker';
 
 function CreatEvent(props) {
     const user = getUser();
-
+    const [endvalue, onEndChange] = useState(new Date());
+    const [beginvalue, onBeginChange] = useState(new Date());
     const [name, setName] = useState();
     const [description, setDescription] = useState();
     const [picurl, setPicurl] = useState();
     const [industry, setIndustry] = useState();
     const [user_id, setUserid] = useState();
     const [location, setLocation] = useState();
-    const [begin_date, setBegin_date] = useState();
-    const [end_date, setEnd_date] = useState();
+    const [begin_date, setBegin_date] = useState(new Date());
+    const [end_date, setEnd_date] = useState(new Date());
     const history = useHistory();
 
     function getFile(e) {
@@ -45,8 +47,7 @@ function CreatEvent(props) {
         reader.readAsDataURL(file);
     }
     useEffect(function effectFunction() {
-        setBegin_date("2021-04-15");
-        setEnd_date("2021-04-16");
+        setPicurl("events.svg");
         setUserid(user.data.id);
 
     }, []);
@@ -120,11 +121,33 @@ function CreatEvent(props) {
                                 </div>
                                 <div className="row px-3">
                                     <label className="mb-1">
+                                        <h6 className="mb-0 text-sm">Begin Date/Time</h6>
+                                    </label>
+                                    <div>
+                                        <DateTimePicker
+                                            onChange={setBegin_date}
+                                            value={begin_date}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="row px-3">
+                                    <label className="mb-1">
+                                        <h6 className="mb-0 text-sm">End Date/Time</h6>
+                                    </label>
+                                    <div>
+                                        <DateTimePicker
+                                            onChange={setEnd_date}
+                                            value={end_date}
+                                        />
+                                    </div>
+                                </div>
+                                {/* <div className="row px-3">
+                                    <label className="mb-1">
                                         <h6 className="mb-0 text-sm">choose image</h6>
                                     </label>
                                     <input onChange={getFile} id="fileUpload" type="file" accept="image/*" />
 
-                                </div>
+                                </div> */}
 
                                 <div className="row mb-3 px-3">
                                     <button type="submit" className="btn btn-blue text-center loginbtn">Create Event</button>
