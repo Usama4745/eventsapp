@@ -14,6 +14,7 @@
 ### `open xampp`
 ### `start apache and mysql`
 ### `open phpmyadmin create new database`
+###  import eventdb.sql in your db
 ### `goto cd server/application/config/database.php and add your db name and credentials`
 ### `cd server`
 # run this command to start php server on port 8080
