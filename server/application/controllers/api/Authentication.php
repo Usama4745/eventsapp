@@ -63,10 +63,11 @@ class Authentication extends REST_Controller {
         $name = strip_tags($this->post('name'));
         $username = strip_tags($this->post('username'));
         $password = $this->post('password');
+        $isAdmin = strval($this->post('isAdmin'));
         $address = strip_tags($this->post('address'));
         
         // Validate the post data
-        if(!empty($name) && !empty($username) && !empty($password) && !empty($address)){
+        if(!empty($name) && !empty($username) && !empty($password) && !empty($address) && !empty($isAdmin)){
             
             // Check if the given username already exists
             $con['returnType'] = 'count';
@@ -84,12 +85,15 @@ class Authentication extends REST_Controller {
                 ], REST_Controller::HTTP_OK);
             }else{
                 // Insert user data
+                if($isAdmin=="2"){
+                    $isAdmin="0";
+                }
                 $userData = array(
                     'name' => $name,
                     'username' => $username,
                     'password' => md5($password),
                     'address' => $address,
-                    'isAdmin' => "0"
+                    'isAdmin' => $isAdmin
                 );
                 $insert = $this->user->insert($userData);
                 

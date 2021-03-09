@@ -9,6 +9,7 @@ function Register(props) {
     const [password, setPassword] = useState();
     const [name, setName] = useState();
     const [address, setAddress] = useState();
+    const [isAdmin, setisAdmin] = useState();
     async function registerUser(credentials) {
         return fetch('http://localhost:8080/api/authentication/registration', {
             method: 'POST',
@@ -22,18 +23,18 @@ function Register(props) {
             },
             body: JSON.stringify(credentials)
         })
-        .then(response => response.json())
-        .then(data => {
-            if(data.status==false){
-                toast(data.message);
-            }else{
-                toast("Registered successfully Please login to continue");
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == false) {
+                    toast(data.message);
+                } else {
+                    toast("Registered successfully Please login to continue");
 
-                props.history.push('/login');
-            }
-            console.log(data)
-            // 
-        });
+                    props.history.push('/login');
+                }
+                console.log(data)
+                // 
+            });
     }
     const handleSubmit = async e => {
         e.preventDefault();
@@ -41,7 +42,8 @@ function Register(props) {
             username,
             password,
             name,
-            address
+            address,
+            isAdmin
         });
     }
     return (
@@ -75,16 +77,31 @@ function Register(props) {
                                 </div>
                                 <div className="row px-3">
                                     <label className="mb-1">
+                                        <h6 className="mb-0 text-sm">User type</h6>
+                                    </label>
+                                    <div onChange={e => setisAdmin(e.target.value)}>
+                                        <input className="mb-4" type="radio" value="1" name="admin" /> 
+                                        <label for="admin">admin</label>
+
+                                        <input className="mb-4" type="radio" value="2" name="user" /> 
+                                        <label for="user">user</label>
+
+                                    </div>
+
+                                </div>
+                                <div className="row px-3">
+                                    <label className="mb-1">
                                         <h6 className="mb-0 text-sm">Password</h6>
-                                    </label> <input type="password" onChange={e => setPassword(e.target.value)} name="password" placeholder="Enter password" /> </div>
+                                    </label> 
+                                    <input type="password" onChange={e => setPassword(e.target.value)} name="password" placeholder="Enter password" />
+                                </div>
                                 <div className="row mb-3 px-3">
                                     <button type="submit" className="btn btn-blue text-center loginbtn">Register</button>
                                 </div>
                                 <div className="row mb-3 px-3">
                                     <Link to={'/login'} className="btn btn-blue text-center">
-
                                         Login
-                                        </Link>
+                                    </Link>
                                 </div>
                             </form>
 
