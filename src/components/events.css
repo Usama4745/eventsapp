@@ -249,5 +249,10 @@
     margin: 10px;
     padding: 10px;
   }
-  
+  .cardcontainer{
+    background-color: white !important;
+  }
+  .cardtext{
+    color:#184c65 !important;
+  }
   

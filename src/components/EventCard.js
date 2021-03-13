@@ -13,7 +13,7 @@ export default function EventCard(props) {
     }
     console.log(new Date(props.events.end_date))
 
-    if(new Date(props.events.end_date)>new Date()){
+    if (new Date(props.events.end_date) > new Date()) {
         console.log("true");
         console.log(new Date(props.events.end_date))
     }
@@ -40,59 +40,63 @@ export default function EventCard(props) {
     }
     return (
         <div className="row">
-            {props.ismyevent == 1 && props.ispastevent == 1 && props.isnewevent==1 && (
+            {props.ismyevent == 1 && props.ispastevent == 1 && props.isnewevent == 1 && (
                 <div className="col-lg-3 col-sm-6">
 
-                    <div className="card hovercard">
-                        <div className="cardheader"
-                            style={{
-                                background: `url(/image/${props.events.picurl}) no-repeat`,
-                                backgroundSize: 'contain',
-                                height: '135px',
-                                float:'left',
-                                width:'135px'
-                            }}
-                        >
-                        </div>
-
-                        <div className="info"
-                        style={{
-                            float:'right',
-                            textAlign:'justify'
-                        }}
-                        >
-                            <div className="title">
-                                <h4 className="card-title">{props.events.name}</h4>
+                    <div className="card hovercard cardcontainer cardtext">
+                        <div className="row">
+                            <div className="col-lg-3">
+                                <div className="cardheader"
+                                    style={{
+                                        background: `url(/image/${props.events.picurl}) no-repeat`,
+                                        backgroundSize: 'contain',
+                                        height: '135px',
+                                        float: 'left',
+                                        width: '135px'
+                                    }}
+                                >
+                                </div>
                             </div>
-                            <div className="desc">{props.events.description}</div>
-                            <div className="desc">Location: {props.events.location}</div>
-                            <div className="desc">Industry: {props.events.industry}</div>
-                            <div className="desc">begin date: {props.events.begin_date}</div>
-                            <div className="desc">end date: {props.events.end_date}</div>
-                            {user.data.id == props.events.user_id &&(
-                            <div className="desc">registered users: {props.events.registered_users==null?0:Object.values(JSON.parse(props.events.registered_users)).length}</div>
-                            )}
-                        </div>
-                        <div >
-
-                            {user.data.id != props.events.user_id && (new Date(props.events.end_date))>(new Date()) &&
-                                (props.events.registered_users != null ? Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) == -1 : true)
-                                && (
-                                    <button onClick={() => handleParticipate(props.events.id)} className="btn-primary">Participate</button>
+                            <div className="col-lg-9"
+                                style={{
+                                    float: 'right',
+                                    textAlign: 'justify'
+                                }}
+                            >
+                                <div >
+                                    <h4 >{props.events.name}</h4>
+                                </div>
+                                {/* <div >{props.events.description}</div> */}
+                                <div >Location: {props.events.location}</div>
+                                <div >Industry: {props.events.industry}</div>
+                                <div >begin date: {props.events.begin_date}</div>
+                                <div >end date: {props.events.end_date}</div>
+                                {user.data.id == props.events.user_id && (
+                                    <div >registered users: {props.events.registered_users == null ? 0 : Object.values(JSON.parse(props.events.registered_users)).length}</div>
                                 )}
-                            {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
-                                <div >Participated!!</div>
-                            )}
-                            {(new Date(props.events.end_date))<(new Date()) &&(
-                                <div >Event Passed!!</div>
+                                <div >
 
-                            )}
+                                    {user.data.id != props.events.user_id && (new Date(props.events.end_date)) > (new Date()) &&
+                                        (props.events.registered_users != null ? Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) == -1 : true)
+                                        && (
+                                            <button onClick={() => handleParticipate(props.events.id)} className="btn-primary">Participate</button>
+                                        )}
+                                    {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
+                                        <div >Participated!!</div>
+                                    )}
+                                    {(new Date(props.events.end_date)) < (new Date()) && (
+                                        <div >Event Passed!!</div>
+
+                                    )}
+                                </div>
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
             )}
-            {props.ismyevent == 0 && props.ispastevent == 1 && props.isnewevent==1 && props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
+            {props.ismyevent == 0 && props.ispastevent == 1 && props.isnewevent == 1 && props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
                 <div className="col-lg-3 col-sm-6">
 
                     <div className="card hovercard">
@@ -126,7 +130,7 @@ export default function EventCard(props) {
 
                 </div>
             )}
-            {(new Date(props.events.end_date))<(new Date()) && props.ismyevent == 1 && props.ispastevent == 0  && props.isnewevent==1 &&  (
+            {(new Date(props.events.end_date)) < (new Date()) && props.ismyevent == 1 && props.ispastevent == 0 && props.isnewevent == 1 && (
                 <div className="col-lg-3 col-sm-6">
 
                     <div className="card hovercard">
@@ -160,7 +164,7 @@ export default function EventCard(props) {
 
                 </div>
             )}
-            {(new Date(props.events.begin_date))>(new Date()) && props.ismyevent == 1 && props.ispastevent == 1  && props.isnewevent==0 &&  (
+            {(new Date(props.events.begin_date)) > (new Date()) && props.ismyevent == 1 && props.ispastevent == 1 && props.isnewevent == 0 && (
                 <div className="col-lg-3 col-sm-6">
 
                     <div className="card hovercard">
@@ -185,7 +189,7 @@ export default function EventCard(props) {
                         </div>
                         <div >
 
-                        {user.data.id != props.events.user_id &&
+                            {user.data.id != props.events.user_id &&
                                 (props.events.registered_users != null ? Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) == -1 : true)
                                 && (
                                     <button onClick={() => handleParticipate(props.events.id)} className="btn-primary">Participate</button>
