@@ -39,21 +39,28 @@ export default function EventCard(props) {
             });
     }
     return (
-        <div>
+        <div className="row">
             {props.ismyevent == 1 && props.ispastevent == 1 && props.isnewevent==1 && (
                 <div className="col-lg-3 col-sm-6">
 
                     <div className="card hovercard">
                         <div className="cardheader"
                             style={{
-                                backgroundImage: `url(/image/${props.events.picurl})`,
-                                backgroundSize: 'cover',
-                                height: '135px'
+                                background: `url(/image/${props.events.picurl}) no-repeat`,
+                                backgroundSize: 'contain',
+                                height: '135px',
+                                float:'left',
+                                width:'135px'
                             }}
                         >
                         </div>
 
-                        <div className="info">
+                        <div className="info"
+                        style={{
+                            float:'right',
+                            textAlign:'justify'
+                        }}
+                        >
                             <div className="title">
                                 <h4 className="card-title">{props.events.name}</h4>
                             </div>

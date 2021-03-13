@@ -3,7 +3,11 @@ import Header from './Header';
 import EventCard from './EventCard';
 import React, { useState, useEffect } from 'react';
 import './events.css';
-import { Link } from 'react-router-dom';
+import CreatEvent from './CreateEvent';
+import MyEvents from './MyEvents';
+import PastEvent from './PastEvent';
+import NewEvents from './NewEvents';
+import {Link,BrowserRouter , Route, Switch } from 'react-router-dom';
 
 export default function Events(props) {
     const user = getUser();
@@ -47,10 +51,26 @@ export default function Events(props) {
                 <Link to="/newevents" className="btn-primary margin">
                     New events</Link>
             )}
-            <div>
                 {eventdata?.map((object, index) => (
                     <EventCard events={object} ismyevent={1} ispastevent={1} isnewevent={1} key={index}></EventCard>
                 ))}
+            <BrowserRouter>
+            <div className="wrapper">
+                <Switch>
+                  <Route exact path='/' component={Events} />
+                  <Route path="/pastevents" component={PastEvent} />
+                  <Route path="/newevents" component={NewEvents} />
+                  <Route path="/myevents" component={MyEvents} />
+                  <Route path="/createvent" component={CreatEvent} />
+                  {/* <PrivateRoute path="/dashboard" component={Dashboard} /> */}
+                </Switch>
             </div>
-        </div>);
+            </BrowserRouter>
+        
+            </div>
+        
+
+
+
+        );
 }
