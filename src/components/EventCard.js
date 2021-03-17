@@ -280,7 +280,7 @@ export default function EventCard(props) {
                                             (props.events.registered_users != null ? Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) == -1 : true)
                                             && (
                                                 <button           style={{display: isToggle ? 'block': 'none'}}
-                                                onClick={() => handleParticipate(props.events.id)} className="btn-primary">Participate</button>
+                                                onClick={(event) => handleParticipate(event,props.events.id)} className="btn-primary">Participate</button>
                                             )}
                                         {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
                                             <div >Participated!!</div>
