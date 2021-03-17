@@ -33,19 +33,6 @@ export default function MyEvents(props) {
 
     return (
         <div>
-            <Header></Header>
-            {user.data.isAdmin == "0" && (
-                <Link to="/myevents" className="btn-primary margin">
-                    My Events</Link>
-            )}
-            {user.data.isAdmin == "0" && (
-                <Link to="/pastevents" className="btn-primary margin">
-                    Past events</Link>
-            )}
-            {user.data.isAdmin == "0" && (
-                <Link to="/newevents" className="btn-primary margin">
-                    New events</Link>
-            )}
             <div>
                 {eventdata?.map((object, index) => (
                     <EventCard events={object} ismyevent={0} ispastevent={1} isnewevent={1} key={index}></EventCard>

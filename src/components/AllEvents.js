@@ -3,12 +3,16 @@ import Header from './Header';
 import EventCard from './EventCard';
 import React, { useState, useEffect } from 'react';
 import './events.css';
-import { Link } from 'react-router-dom';
+import CreatEvent from './CreateEvent';
+import MyEvents from './MyEvents';
+import PastEvent from './PastEvent';
+import NewEvents from './NewEvents';
+import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 
-export default function PastEvents(props) {
-    const [eventdata, setEvent] = useState();
+export default function AllEvents(props) {
     const user = getUser();
-
+    const [eventdata, setEvent] = useState();
+    const ismyevent = 1;
     useEffect(function effectFunction() {
         fetch('http://localhost:8080/api/events/eventall', {
             method: 'GET',
@@ -23,28 +27,25 @@ export default function PastEvents(props) {
         })
             .then(response => response.json())
             .then(data => {
+                data.ismyevent = 0;
                 setEvent(data)
             });
     }, []);
 
     return (
         <div>
-            {/* {user.data.isAdmin == "0" && (
-                <Link to="/myevents" className="btn-primary margin">
-                    My Events</Link>
-            )}
-            {user.data.isAdmin == "0" && (
-                <Link to="/pastevents" className="btn-primary margin">
-                    Past events</Link>
-            )}
-            {user.data.isAdmin == "0" && (
-                <Link to="/newevents" className="btn-primary margin">
-                    New events</Link>
-            )} */}
-            <div>
-                {eventdata?.map((object, index) => (
-                    <EventCard events={object} ismyevent={1} ispastevent={1} isnewevent={0} key={index}></EventCard>
-                ))}
+            <div >
+                <div >
+                    {eventdata?.map((object, index) => (
+                        <EventCard events={object} ismyevent={1} ispastevent={1} isnewevent={1} key={index}></EventCard>
+                    ))}
+                </div>
+
             </div>
-        </div>);
+        </div>
+
+
+
+
+    );
 }

@@ -7,12 +7,13 @@ import CreatEvent from './CreateEvent';
 import MyEvents from './MyEvents';
 import PastEvent from './PastEvent';
 import NewEvents from './NewEvents';
-import {Link,BrowserRouter , Route, Switch } from 'react-router-dom';
+import AllEvents from './AllEvents';
+import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 
 export default function Events(props) {
     const user = getUser();
     const [eventdata, setEvent] = useState();
-    const ismyevent=1;
+    const ismyevent = 1;
     useEffect(function effectFunction() {
         fetch('http://localhost:8080/api/events/eventall', {
             method: 'GET',
@@ -27,50 +28,72 @@ export default function Events(props) {
         })
             .then(response => response.json())
             .then(data => {
-                data.ismyevent=0;
+                data.ismyevent = 0;
                 setEvent(data)
+                props.history.push('/events/allevents');
+
             });
     }, []);
 
     return (
         <div>
             <Header></Header>
-            {user.data.isAdmin == "1" && (
-                <Link to="/createvent" className="btn-primary margin">
-                    Create New Event</Link>
-            )}
-            {user.data.isAdmin == "0" && (
-                <Link to="/myevents" className="btn-primary margin">
-                    My Events</Link>
-            )}
-            {user.data.isAdmin == "0" && (
-                <Link to="/pastevents" className="btn-primary margin">
-                    Past events</Link>
-            )}
-            {user.data.isAdmin == "0" && (
-                <Link to="/newevents" className="btn-primary margin">
-                    New events</Link>
-            )}
-                {eventdata?.map((object, index) => (
-                    <EventCard events={object} ismyevent={1} ispastevent={1} isnewevent={1} key={index}></EventCard>
-                ))}
-            <BrowserRouter>
-            <div className="wrapper">
-                <Switch>
-                  <Route exact path='/' component={Events} />
-                  <Route path="/pastevents" component={PastEvent} />
-                  <Route path="/newevents" component={NewEvents} />
-                  <Route path="/myevents" component={MyEvents} />
-                  <Route path="/createvent" component={CreatEvent} />
-                  {/* <PrivateRoute path="/dashboard" component={Dashboard} /> */}
-                </Switch>
+            <div className="row">
+                <div className="col-md-4">
+
+                    <nav class="navbar navbar-light bg-light ">
+                        <ul class="nav pillsnavs">
+                            <li class="nav-item pillsnavs">
+                                {user.data.isAdmin == "1" && (
+                                    <Link to="/events/createevents" className="nav-link">
+                                        Create New Event</Link>
+                                )}
+                            </li>
+                            <li class="nav-item">
+                                <Link to="/events/allevents" className="sidenavs nav-link active">
+                                    Events</Link>
+
+                            </li>
+                            <li class="nav-item">
+                                {user.data.isAdmin == "0" && (
+                                    <Link to="/events/myevents" className="sidenavs nav-link">
+                                        My Events</Link>
+                                )}
+                            </li>
+                            <li class="nav-item">
+                                {user.data.isAdmin == "0" && (
+                                    <Link to="/events/pastevents" className="sidenavs nav-link">
+                                        Past events</Link>
+                                )}
+                            </li>
+                            <li class="nav-item">
+                                {user.data.isAdmin == "0" && (
+                                    <Link to="/events/newevents" className="sidenavs nav-link">
+                                        New events</Link>
+                                )}
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div className="col-md-6">
+                    {/* {eventdata?.map((object, index) => (
+                        <EventCard events={object} ismyevent={1} ispastevent={1} isnewevent={1} key={index}></EventCard>
+                    ))} */}
+                    <Switch>
+                        <Route exact path="/events" />
+                        <Route exact path="/events/newevents" component={NewEvents} />
+                        <Route exact path="/events/createevents" component={CreatEvent} />
+                        <Route exact path="/events/pastevents" component={PastEvent} />
+                        <Route exact path="/events/myevents" component={MyEvents} />
+                        <Route exact path="/events/allevents" component={AllEvents} />
+                    </Switch>
+                </div>
+
             </div>
-            </BrowserRouter>
-        
-            </div>
-        
+        </div>
 
 
 
-        );
+
+    );
 }

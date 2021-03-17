@@ -41,11 +41,11 @@ export default function EventCard(props) {
     return (
         <div className="row">
             {props.ismyevent == 1 && props.ispastevent == 1 && props.isnewevent == 1 && (
-                <div className="col-lg-3 col-sm-6">
+                <div >
 
                     <div className="card hovercard cardcontainer cardtext">
                         <div className="row">
-                            <div className="col-lg-3">
+                            <div className="col-md-3">
                                 <div className="cardheader"
                                     style={{
                                         background: `url(/image/${props.events.picurl}) no-repeat`,
@@ -57,7 +57,7 @@ export default function EventCard(props) {
                                 >
                                 </div>
                             </div>
-                            <div className="col-lg-9"
+                            <div className="col-md-9"
                                 style={{
                                     float: 'right',
                                     textAlign: 'justify'
@@ -97,41 +97,48 @@ export default function EventCard(props) {
                 </div>
             )}
             {props.ismyevent == 0 && props.ispastevent == 1 && props.isnewevent == 1 && props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
-                <div className="col-lg-3 col-sm-6">
+                <div>
 
-                    <div className="card hovercard">
-                        <div className="cardheader"
-                            style={{
-                                backgroundImage: `url(/image/${props.events.picurl})`,
-                                backgroundSize: 'cover',
-                                height: '135px'
-                            }}
-                        >
-                        </div>
+                    <div className="card hovercard cardcontainer cardtext">
+                        <div className="col-md-3">
 
-                        <div className="info">
-                            <div className="title">
-                                <h4 className="card-title">{props.events.name}</h4>
+                            <div className="cardheader"
+                                style={{
+                                    backgroundImage: `url(/image/${props.events.picurl})`,
+                                    backgroundSize: 'cover',
+                                    height: '135px'
+                                }}
+                            >
                             </div>
-                            <div className="desc">{props.events.description}</div>
-                            <div className="desc">Location: {props.events.location}</div>
-                            <div className="desc">Industry: {props.events.industry}</div>
-                            <div className="desc">begin date: {props.events.begin_date}</div>
-                            <div className="desc">end date: {props.events.end_date}</div>
                         </div>
-                        <div >
+                        <div className="col-md-9"
+                            style={{
+                                float: 'right',
+                                textAlign: 'justify'
+                            }}>
+                            <div>
+                                <h4 >{props.events.name}</h4>
+                            </div>
+                            <div >{props.events.description}</div>
+                            <div >Location: {props.events.location}</div>
+                            <div >Industry: {props.events.industry}</div>
+                            <div >begin date: {props.events.begin_date}</div>
+                            <div >end date: {props.events.end_date}</div>
+                            <div >
 
 
-                            {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
-                                <div >Participated!!</div>
-                            )}
+                                {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
+                                    <div >Participated!!</div>
+                                )}
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
             )}
             {(new Date(props.events.end_date)) < (new Date()) && props.ismyevent == 1 && props.ispastevent == 0 && props.isnewevent == 1 && (
-                <div className="col-lg-3 col-sm-6">
+                <div>
 
                     <div className="card hovercard">
                         <div className="cardheader"
@@ -147,11 +154,11 @@ export default function EventCard(props) {
                             <div className="title">
                                 <h4 className="card-title">{props.events.name}</h4>
                             </div>
-                            <div className="desc">{props.events.description}</div>
-                            <div className="desc">Location: {props.events.location}</div>
-                            <div className="desc">Industry: {props.events.industry}</div>
-                            <div className="desc">begin date: {props.events.begin_date}</div>
-                            <div className="desc">end date: {props.events.end_date}</div>
+                            <div>{props.events.description}</div>
+                            <div>Location: {props.events.location}</div>
+                            <div>Industry: {props.events.industry}</div>
+                            <div>begin date: {props.events.begin_date}</div>
+                            <div>end date: {props.events.end_date}</div>
                         </div>
                         <div >
 
@@ -165,7 +172,7 @@ export default function EventCard(props) {
                 </div>
             )}
             {(new Date(props.events.begin_date)) > (new Date()) && props.ismyevent == 1 && props.ispastevent == 1 && props.isnewevent == 0 && (
-                <div className="col-lg-3 col-sm-6">
+                <div>
 
                     <div className="card hovercard">
                         <div className="cardheader"
@@ -181,11 +188,11 @@ export default function EventCard(props) {
                             <div className="title">
                                 <h4 className="card-title">{props.events.name}</h4>
                             </div>
-                            <div className="desc">{props.events.description}</div>
-                            <div className="desc">Location: {props.events.location}</div>
-                            <div className="desc">Industry: {props.events.industry}</div>
-                            <div className="desc">begin date: {props.events.begin_date}</div>
-                            <div className="desc">end date: {props.events.end_date}</div>
+                            <div>{props.events.description}</div>
+                            <div>Location: {props.events.location}</div>
+                            <div>Industry: {props.events.industry}</div>
+                            <div>begin date: {props.events.begin_date}</div>
+                            <div>end date: {props.events.end_date}</div>
                         </div>
                         <div >
 
