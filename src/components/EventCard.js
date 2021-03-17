@@ -2,6 +2,7 @@ import React from 'react';
 import { getUser, removeUserSession } from './Utils/Common';
 import Header from './Header';
 import logo from '../assets/image/loginscreen.svg'; // Tell webpack this JS file uses this image
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function EventCard(props) {
     const user = getUser();
@@ -66,28 +67,44 @@ export default function EventCard(props) {
                                 <div >
                                     <h4 >{props.events.name}</h4>
                                 </div>
-                                {/* <div >{props.events.description}</div> */}
-                                <div >Location: {props.events.location}</div>
-                                <div >Industry: {props.events.industry}</div>
-                                <div >begin date: {props.events.begin_date}</div>
-                                <div >end date: {props.events.end_date}</div>
-                                {user.data.id == props.events.user_id && (
-                                    <div >registered users: {props.events.registered_users == null ? 0 : Object.values(JSON.parse(props.events.registered_users)).length}</div>
-                                )}
-                                <div >
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div><i class="fa fa-calendar" style={{ margin: '5px' }}></i>
+                                            {new Date(props.events.begin_date).toLocaleString()}
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div ><i class="fa fa-map-marker" style={{ margin: '5px' }}></i>{props.events.industry}</div>
+                                    </div>
+                                </div>
+                                <div >{props.events.description}</div>
 
-                                    {user.data.id != props.events.user_id && (new Date(props.events.end_date)) > (new Date()) &&
-                                        (props.events.registered_users != null ? Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) == -1 : true)
-                                        && (
-                                            <button onClick={() => handleParticipate(props.events.id)} className="btn-primary">Participate</button>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div ><i class="fa fa-map-marker" style={{ margin: '5px' }}></i> {props.events.location}</div>
+                                        {/* <div >end date: {props.events.end_date}</div> */}
+                                    </div>
+                                    <div className="col-md-6">
+
+                                        {user.data.id == props.events.user_id && (
+                                            <div >registered users: {props.events.registered_users == null ? 0 : Object.values(JSON.parse(props.events.registered_users)).length}</div>
                                         )}
-                                    {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
-                                        <div >Participated!!</div>
-                                    )}
-                                    {(new Date(props.events.end_date)) < (new Date()) && (
-                                        <div >Event Passed!!</div>
+                                        <div >
 
-                                    )}
+                                            {user.data.id != props.events.user_id && (new Date(props.events.end_date)) > (new Date()) &&
+                                                (props.events.registered_users != null ? Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) == -1 : true)
+                                                && (
+                                                    <button onClick={() => handleParticipate(props.events.id)} className="btn-primary">Participate</button>
+                                                )}
+                                            {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
+                                                <div >Participated!!</div>
+                                            )}
+                                            {(new Date(props.events.end_date)) < (new Date()) && (
+                                                <div >Event Passed!!</div>
+
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -121,17 +138,31 @@ export default function EventCard(props) {
                                 <div>
                                     <h4 >{props.events.name}</h4>
                                 </div>
+
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div><i class="fa fa-calendar" style={{ margin: '5px' }}></i>
+                                            {new Date(props.events.begin_date).toLocaleString()}
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div ><i class="fa fa-map-marker" style={{ margin: '5px' }}></i>{props.events.industry}</div>
+                                    </div>
+                                </div>
+
                                 <div >{props.events.description}</div>
-                                <div >Location: {props.events.location}</div>
-                                <div >Industry: {props.events.industry}</div>
-                                <div >begin date: {props.events.begin_date}</div>
-                                <div >end date: {props.events.end_date}</div>
-                                <div >
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div ><i class="fa fa-map-marker" style={{ margin: '5px' }}></i> {props.events.location}</div>
+                                        {/* <div >end date: {props.events.end_date}</div> */}
+                                    </div>
+                                    <div className="col-md-6">
 
 
-                                    {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
-                                        <div >Participated!!</div>
-                                    )}
+                                        {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
+                                            <div >Participated!!</div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -164,17 +195,30 @@ export default function EventCard(props) {
                                 <div>
                                     <h4 >{props.events.name}</h4>
                                 </div>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div><i class="fa fa-calendar" style={{ margin: '5px' }}></i>
+                                            {new Date(props.events.begin_date).toLocaleString()}
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div ><i class="fa fa-map-marker" style={{ margin: '5px' }}></i>{props.events.industry}</div>
+                                    </div>
+                                </div>
+
                                 <div>{props.events.description}</div>
-                                <div>Location: {props.events.location}</div>
-                                <div>Industry: {props.events.industry}</div>
-                                <div>begin date: {props.events.begin_date}</div>
-                                <div>end date: {props.events.end_date}</div>
-                                <div >
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div ><i class="fa fa-map-marker" style={{ margin: '5px' }}></i> {props.events.location}</div>
+                                        {/* <div >end date: {props.events.end_date}</div> */}
+                                    </div>
+                                    <div className="col-md-6">
 
 
-                                    {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
-                                        <div >Participated!!</div>
-                                    )}
+                                        {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
+                                            <div >Participated!!</div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 
@@ -207,21 +251,34 @@ export default function EventCard(props) {
                                 <div >
                                     <h4 >{props.events.name}</h4>
                                 </div>
-                                <div>{props.events.description}</div>
-                                <div>Location: {props.events.location}</div>
-                                <div>Industry: {props.events.industry}</div>
-                                <div>begin date: {props.events.begin_date}</div>
-                                <div>end date: {props.events.end_date}</div>
-                                <div >
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div><i class="fa fa-calendar" style={{ margin: '5px' }}></i>
+                                            {new Date(props.events.begin_date).toLocaleString()}
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div ><i class="fa fa-map-marker" style={{ margin: '5px' }}></i>{props.events.industry}</div>
+                                    </div>
+                                </div>
 
-                                    {user.data.id != props.events.user_id &&
-                                        (props.events.registered_users != null ? Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) == -1 : true)
-                                        && (
-                                            <button onClick={() => handleParticipate(props.events.id)} className="btn-primary">Participate</button>
+                                <div>{props.events.description}</div>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div ><i class="fa fa-map-marker" style={{ margin: '5px' }}></i> {props.events.location}</div>
+                                        {/* <div >end date: {props.events.end_date}</div> */}
+                                    </div>
+                                    <div className="col-md-6">
+
+                                        {user.data.id != props.events.user_id &&
+                                            (props.events.registered_users != null ? Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) == -1 : true)
+                                            && (
+                                                <button onClick={() => handleParticipate(props.events.id)} className="btn-primary">Participate</button>
+                                            )}
+                                        {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
+                                            <div >Participated!!</div>
                                         )}
-                                    {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
-                                        <div >Participated!!</div>
-                                    )}
+                                    </div>
                                 </div>
                             </div>
 
