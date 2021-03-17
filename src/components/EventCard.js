@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export default function EventCard(props) {
     const user = getUser();
     const userid = user.data.id;
+    var isToggle = true;
     console.log("props eventcard");
     console.log(props);
     if (props.events.registered_users != null) {
@@ -18,7 +19,10 @@ export default function EventCard(props) {
         console.log("true");
         console.log(new Date(props.events.end_date))
     }
-    async function handleParticipate(id) {
+    async function handleParticipate(event,id) {
+        console.log(event.target.style);
+        event.target.style.display='none';
+        isToggle = false;
         fetch('http://localhost:8080/api/events/updatereg', {
             method: 'PUT',
             headers: {
@@ -91,10 +95,12 @@ export default function EventCard(props) {
                                         )}
                                         <div >
 
-                                            {user.data.id != props.events.user_id && (new Date(props.events.end_date)) > (new Date()) &&
+                                            {isToggle && user.data.id != props.events.user_id && (new Date(props.events.end_date)) > (new Date()) &&
                                                 (props.events.registered_users != null ? Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) == -1 : true)
                                                 && (
-                                                    <button onClick={() => handleParticipate(props.events.id)} className="btn-primary">Participate</button>
+                                                    <button style={{display: isToggle ? 'block': 'none'}}
+                                                    
+                                                    onClick={(event) => handleParticipate(event,props.events.id)} className="btn-primary">Participate</button>
                                                 )}
                                             {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
                                                 <div >Participated!!</div>
@@ -273,7 +279,8 @@ export default function EventCard(props) {
                                         {user.data.id != props.events.user_id &&
                                             (props.events.registered_users != null ? Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) == -1 : true)
                                             && (
-                                                <button onClick={() => handleParticipate(props.events.id)} className="btn-primary">Participate</button>
+                                                <button           style={{display: isToggle ? 'block': 'none'}}
+                                                onClick={() => handleParticipate(props.events.id)} className="btn-primary">Participate</button>
                                             )}
                                         {props.events.registered_users != null && Object.values(JSON.parse(props.events.registered_users)).indexOf(user.data.id) > -1 && (
                                             <div >Participated!!</div>
