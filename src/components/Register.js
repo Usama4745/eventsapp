@@ -80,19 +80,21 @@ function Register(props) {
                                         <h6 className="mb-0 text-sm">User type</h6>
                                     </label>
                                     <div onChange={e => setisAdmin(e.target.value)}>
-                                        <input className="mb-4" type="radio" value="1" name="admin" /> 
-                                        <label for="admin">admin</label>
-
-                                        <input className="mb-4" type="radio" value="2" name="user" /> 
-                                        <label for="user">user</label>
-
+                                        <div className="row">
+                                            <label className="col-md-6" for="admin">admin</label>
+                                            <input className="col-md-6" type="radio" value="1" name="admin" />
+                                        </div>
+                                        <div className="row px-3">
+                                            <label className="col-md-6" for="user">user</label>
+                                            <input className="col-md-6" type="radio" value="2" name="user" />
+                                        </div>
                                     </div>
 
                                 </div>
                                 <div className="row px-3">
                                     <label className="mb-1">
                                         <h6 className="mb-0 text-sm">Password</h6>
-                                    </label> 
+                                    </label>
                                     <input type="password" onChange={e => setPassword(e.target.value)} name="password" placeholder="Enter password" />
                                 </div>
                                 <div className="row mb-3 px-3">
